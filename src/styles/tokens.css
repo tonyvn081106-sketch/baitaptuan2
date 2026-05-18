@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+:root {
+  /* Giữ nguyên hệ thống biến CSS gốc của bạn */
+  --color-brand-primary: #16a34a;     /* Xanh lá chính (Green 600) */
+  --color-brand-dark: #15803d;        /* Xanh lá đậm khi hover (Green 700) */
+  --color-brand-bg: #f8fafc;          /* Nền xám xanh dịu mắt (Slate 50) */
+  --color-text-main: #0f172a;         /* Đen tiêu đề sâu (Slate 900) */
+  --color-text-body: #334155;         /* Xám chữ nội dung (Slate 700) */
+  --color-text-muted: #475569;        /* Xám chữ phụ (Slate 600) */
+  
+  /* SPACING TOKENS */
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 3rem;
+  --spacing-xl: 5rem;
+}
+
+/* Định nghĩa `@theme` để gán biến CSS của bạn thành các class tiện ích của Tailwind v4 */
+@theme {
+  --color-brand-primary: var(--color-brand-primary);
+  --color-brand-dark: var(--color-brand-dark);
+  --color-brand-bg: var(--color-brand-bg);
+  --color-text-main: var(--color-text-main);
+  --color-text-body: var(--color-text-body);
+  --color-text-muted: var(--color-text-muted);
+}

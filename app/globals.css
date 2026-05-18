@@ -3,13 +3,27 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  /* Hệ màu Design Tokens của bạn */
+  --color-brand-primary: #16a34a;
+  --color-brand-dark: #15803d;
+  --color-brand-bg: #f8fafc;
+  --color-text-main: #0f172a;
+  --color-text-body: #334155;
+  --color-text-muted: #475569;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* ÉP TAILWIND V4 DÙNG FONT HỆ THỐNG MƯỢT TIẾNG VIỆT, BỎ QUA GEIST SANS GÂY LỖI */
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: monospace;
+
+  --color-brand-primary: var(--color-brand-primary);
+  --color-brand-dark: var(--color-brand-dark);
+  --color-brand-bg: var(--color-brand-bg);
+  --color-text-main: var(--color-text-main);
+  --color-text-body: var(--color-text-body);
+  --color-text-muted: var(--color-text-muted);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -19,8 +33,12 @@
   }
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
 }
