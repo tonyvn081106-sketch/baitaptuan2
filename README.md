@@ -4,7 +4,7 @@ Dự án Landing Page giới thiệu giải pháp nông nghiệp thông minh, t�
 
 ---
 
-## 👥 Thành viên thực hiện
+## Thành viên thực hiện
 * **Họ và tên:** Lê Nguyễn Anh Minh
 * **Mã sinh viên:** PH61630
 * **Lớp / Khóa:** Phát triển phần mềm (Software Development) - FPT Polytechnic Hanoi
@@ -12,7 +12,7 @@ Dự án Landing Page giới thiệu giải pháp nông nghiệp thông minh, t�
 
 ---
 
-## 🛠️ Công nghệ sử dụng & Cấu trúc mã nguồn
+## Công nghệ sử dụng & Cấu trúc mã nguồn
 
 * **Framework:** Next.js 16 (App Router) + React 19
 * **Styling:** Tailwind CSS v4 (Cấu hình Design Tokens trực tiếp qua compiler `@theme`)
@@ -34,24 +34,26 @@ Dự án Landing Page giới thiệu giải pháp nông nghiệp thông minh, t�
 │   └── design-tokens.md   # Đặc tả hệ thống mã màu, khoảng cách và phông chữ
 ├── package.json           # Khai báo các scripts vận hành hệ thống (Bao gồm lệnh lhci)
 └── README.md              # Tài liệu hướng dẫn và nghiệm thu dự án
-📊 Các câu lệnh vận hành dự án (Scripts)Tại thư mục gốc của dự án, sử dụng các câu lệnh sau qua Terminal:
-Cài đặt thư viện:Bash
+###Các câu lệnh vận hành dự án (Scripts)
+####Tại thư mục gốc của dự án, sử dụng các câu lệnh sau qua Terminal:
+#####Cài đặt thư viện:Bash
 npm install
-Chạy môi trường phát triển (Local):Bash
+#####Chạy môi trường phát triển (Local):Bash
 npm run dev
-Hệ thống khởi chạy tại địa chỉ: http://localhost:3000
-Kiểm tra lỗi và đóng gói Production:Bash
+->Hệ thống khởi chạy tại địa chỉ: http://localhost:3000
+#####Kiểm tra lỗi và đóng gói Production:Bash
 npm run build
-Chạy bản đóng gói sau khi build:Bash
+#####Chạy bản đóng gói sau khi build:Bash
 npm run start
-Khởi chạy tiến trình kiểm thử tự động Lighthouse CI:Bash
+#####Khởi chạy tiến trình kiểm thử tự động Lighthouse CI:Bash
 npm run lh
-📱 Khả năng tương thích thiết bị (Responsive Breakpoints)Giao diện tuân thủ nghiêm ngặt tư duy Mobile-First, không sử dụng inline-style, tự động co giãn hoàn hảo qua 3 mốc kích thước yêu cầu:
+###Khả năng tương thích thiết bị (Responsive Breakpoints)Giao diện tuân thủ nghiêm ngặt tư duy Mobile-First, không sử dụng inline-style, tự động co giãn hoàn hảo qua 3 mốc kích thước yêu cầu:
 Màn hình nhỏ (Mobile $\le$ 640px): 
 Tiêu đề tự động ngắt dòng thông minh, form đăng ký thu gọn padding (p-5), bố cục chuyển về 1 cột dọc (flex-col, grid-cols-1) triệt tiêu lỗi tràn viền.
-Màn hình trung bình (Tablet 641px - 1024px): Lưới tính năng tự động chia 2 cột (sm:grid-cols-2). Nút "Quay lại" trong form tự động nhảy về góc trái ngay ngắn.
+Màn hình trung bình (Tablet 641px - 1024px): Lưới tính năng tự động chia 2 cột (sm:grid-cols-2). 
+Nút "Quay lại" trong form tự động nhảy về góc trái ngay ngắn.
 Màn hình lớn (Laptop/Desktop $\ge$ 1025px): Khối Banner CTA mở rộng sang định dạng hàng ngang (lg:flex-row), lưới tính năng bung thành 3 cột tăm tắp (lg:grid-cols-3).
-✅ Kết quả nghiệm thu tiêu chí chấp nhận (Week 2 Checklist)
+###Kết quả nghiệm thu tiêu chí chấp nhận (Week 2 Checklist)
 [x] 3 Breakpoint hoạt động: Responsive mượt mà trên Mobile, Tablet và Laptop mà không bị vỡ hay tràn bố cục.
 [x] Chỉ số Lighthouse đạt chuẩn siêu cao: Trang chính đạt điểm số lý tưởng khi quét ẩn danh (Performance $\ge$ 95, Accessibility = 100).
 [x] Dịch chuyển bố cục (CLS < 0.10): Đạt mốc 0.00 tuyệt đối nhờ cơ chế thiết lập layout cứng cáp và xử lý thuộc tính data-scroll-behavior="smooth" chuẩn chỉ của Next.js.
