@@ -1,27 +1,34 @@
 @import "tailwindcss";
 
 :root {
-  /* Giữ nguyên hệ thống biến CSS gốc của bạn */
-  --color-brand-primary: #16a34a;     /* Xanh lá chính (Green 600) */
-  --color-brand-dark: #15803d;        /* Xanh lá đậm khi hover (Green 700) */
-  --color-brand-bg: #f8fafc;          /* Nền xám xanh dịu mắt (Slate 50) */
-  --color-text-main: #0f172a;         /* Đen tiêu đề sâu (Slate 900) */
-  --color-text-body: #334155;         /* Xám chữ nội dung (Slate 700) */
-  --color-text-muted: #475569;        /* Xám chữ phụ (Slate 600) */
+  /* 1. BRAND COLORS (Đã đồng bộ chính xác theo mã màu trên Slide) */
+  --color-brand-primary: #10b981;    /* Emerald (#10b981) - Xanh công nghệ nông nghiệp */
+  --color-brand-dark: #059669;       /* Emerald 600 - Dùng khi hover để nút đậm lại dịu mắt */
+  --color-brand-bg: #f8fafc;         /* Slate 50 - Nền xám xanh nhẹ nhàng */
   
-  /* SPACING TOKENS */
-  --spacing-sm: 1rem;
-  --spacing-md: 1.5rem;
-  --spacing-lg: 3rem;
-  --spacing-xl: 5rem;
+  /* 2. TEXT COLORS */
+  --color-text-main: #0f172a;        /* Slate (#0f172a) - Đảm bảo tỷ lệ tương phản WCAG AA */
+  --color-text-body: #334155;        /* Slate 700 - Dành cho văn bản nội dung chính */
+  --color-text-muted: #64748b;       /* Slate 500 - Dành cho các đoạn text phụ, mô tả */
+  
+  /* 3. SPACING TOKENS (Quy đổi chuẩn hệ thống bội số 8px: 8px, 16px, 24px, 32px) */
+  --spacing-xs: 0.5rem;              /* 8px */
+  --spacing-sm: 1rem;                /* 16px */
+  --spacing-md: 1.5rem;              /* 24px */
+  --spacing-lg: 2rem;                /* 32px */
 }
 
-/* Định nghĩa `@theme` để gán biến CSS của bạn thành các class tiện ích của Tailwind v4 */
+/* Định nghĩa `@theme` cho Tailwind v4 */
 @theme {
+  /* Màu sắc */
   --color-brand-primary: var(--color-brand-primary);
   --color-brand-dark: var(--color-brand-dark);
   --color-brand-bg: var(--color-brand-bg);
   --color-text-main: var(--color-text-main);
   --color-text-body: var(--color-text-body);
   --color-text-muted: var(--color-text-muted);
+
+  /* Font Family (Đồng bộ theo mục Typography & Rationale trên slide) */
+  --font-heading: "Plus Jakarta Sans", sans-serif;
+  --font-body: "Inter", sans-serif;
 }

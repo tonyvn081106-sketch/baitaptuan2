@@ -5,14 +5,11 @@ export default function Hero() {
       aria-labelledby="hero-heading"
     >
       <div className="max-w-5xl mx-auto space-y-6">
-        {/* SỬA LẠI: 
-            - Mặc định ở mobile: text-3xl, tracking-tight (cho chữ tự động xuống hàng gọn gàng)
-            - Trên tablet/laptop (md trở lên): text-5xl, md:whitespace-nowrap (dàn phẳng 1 dòng cực đẹp)
-            - Trên màn hình lớn (lg trở lên): text-6xl
-        */}
+        
+        {/* ĐÃ SỬA: Bỏ md:whitespace-nowrap, thêm max-w-4xl để tự động ngắt dòng mượt mà */}
         <h1 
           id="hero-heading" 
-          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-text-main tracking-tight md:tracking-normal md:whitespace-nowrap"
+          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-text-main tracking-tight md:tracking-normal max-w-4xl mx-auto leading-tight"
         >
           Nông nghiệp công nghệ cao
         </h1>

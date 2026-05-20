@@ -30,9 +30,9 @@ export default function Features() {
         <div className="mt-8 sm:mt-12 grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {featureList.map((item, index) => (
             <div 
-              key={index} 
-              className="p-5 sm:p-6 bg-slate-50 rounded-xl border border-slate-200/60 hover:bg-white hover:border-brand-primary/40 shadow-sm hover:shadow-md transition-all duration-300"
-            >
+                key={index} 
+                className="p-5 sm:p-6 bg-slate-50 rounded-xl border border-slate-200/60 hover:bg-white hover:border-brand-primary shadow-sm hover:shadow-md transition-all duration-300"
+              >
               <h3 className="font-bold text-lg sm:text-xl text-text-main break-words">
                 {item.title}
               </h3>

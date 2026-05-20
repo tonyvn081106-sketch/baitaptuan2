@@ -3,11 +3,13 @@ import type { Metadata } from "next";
 import "./globals.css"; 
 
 export const metadata: Metadata = {
+  //Tiêu đề trang ngắn gọn, chứa từ khóa chính trực quan.
   title: "Nông Nghiệp Công Nghệ Cao",
+  //Thẻ mô tả súc tích, tối ưu hóa tỷ lệ click chuột (CTR) khi hiển thị trên trang kết quả tìm kiếm của Google.
   description: "Giải pháp nông nghiệp thông minh",
 };
 
-export default function RootLayout({
+export default function RootLayout({  
   children,
 }: Readonly<{
   children: React.ReactNode;
