@@ -1,34 +1,67 @@
 @import "tailwindcss";
 
 :root {
-  /* 1. BRAND COLORS (Đã đồng bộ chính xác theo mã màu trên Slide) */
-  --color-brand-primary: #10b981;    /* Emerald (#10b981) - Xanh công nghệ nông nghiệp */
-  --color-brand-dark: #059669;       /* Emerald 600 - Dùng khi hover để nút đậm lại dịu mắt */
-  --color-brand-bg: #f8fafc;         /* Slate 50 - Nền xám xanh nhẹ nhàng */
-  
-  /* 2. TEXT COLORS */
-  --color-text-main: #0f172a;        /* Slate (#0f172a) - Đảm bảo tỷ lệ tương phản WCAG AA */
-  --color-text-body: #334155;        /* Slate 700 - Dành cho văn bản nội dung chính */
-  --color-text-muted: #64748b;       /* Slate 500 - Dành cho các đoạn text phụ, mô tả */
-  
-  /* 3. SPACING TOKENS (Quy đổi chuẩn hệ thống bội số 8px: 8px, 16px, 24px, 32px) */
-  --spacing-xs: 0.5rem;              /* 8px */
-  --spacing-sm: 1rem;                /* 16px */
-  --spacing-md: 1.5rem;              /* 24px */
-  --spacing-lg: 2rem;                /* 32px */
+  /* --- COLOR TOKENS --- */
+  /* Brand Colors */
+  --color-brand-primary: #0A5C36;      /* Xanh lá đậm (Sinh thái, bền vững) */
+  --color-brand-secondary: #008080;    /* Xanh Teal (Công nghệ, giải pháp hiện đại) */
+  --color-brand-accent: #F2994A;       /* Cam đất (Năng lượng, thu hoạch, điểm nhấn) */
+
+  /* Neutral Colors */
+  --color-neutral-dark: #1E293B;       /* Slate 800 (Chữ chính) */
+  --color-neutral-light: #F8FAFC;      /* Slate 50 (Nền chính) */
+  --color-neutral-surface: #FFFFFF;    /* Trắng (Nền card) */
+  --color-neutral-muted: #64748B;      /* Slate 500 (Chữ phụ, border) */
+
+  /* System States */
+  --color-state-focus: #2563EB;        /* Xanh dương (Outline focus) */
+
+  /* --- SPACING TOKENS --- */
+  --space-xs: 0.5rem;   /* 8px */
+  --space-sm: 1rem;     /* 16px */
+  --space-md: 1.5rem;   /* 24px */
+  --space-lg: 3rem;     /* 48px */
+  --space-xl: 5rem;     /* 80px */
+
+  /* --- TYPOGRAPHY TOKENS --- */
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+
+  --text-xs: 0.75rem;   /* 12px */
+  --text-base: 1rem;    /* 16px */
+  --text-lg: 1.125rem;  /* 18px */
+  --text-xl: 1.25rem;   /* 20px */
+  --text-2xl: 1.75rem;  /* 28px */
+  --text-3xl: 2.25rem;  /* 36px */
 }
 
-/* Định nghĩa `@theme` cho Tailwind v4 */
+/* Định nghĩa hệ thống theme cho Tailwind v4 */
 @theme {
-  /* Màu sắc */
+  /* Khai báo màu sắc để dùng dạng: bg-brand-primary, text-neutral-dark,... */
   --color-brand-primary: var(--color-brand-primary);
-  --color-brand-dark: var(--color-brand-dark);
-  --color-brand-bg: var(--color-brand-bg);
-  --color-text-main: var(--color-text-main);
-  --color-text-body: var(--color-text-body);
-  --color-text-muted: var(--color-text-muted);
+  --color-brand-secondary: var(--color-brand-secondary);
+  --color-brand-accent: var(--color-brand-accent);
+  
+  --color-neutral-dark: var(--color-neutral-dark);
+  --color-neutral-light: var(--color-neutral-light);
+  --color-neutral-surface: var(--color-neutral-surface);
+  --color-neutral-muted: var(--color-neutral-muted);
+  
+  --color-state-focus: var(--color-state-focus);
 
-  /* Font Family (Đồng bộ theo mục Typography & Rationale trên slide) */
-  --font-heading: "Plus Jakarta Sans", sans-serif;
-  --font-body: "Inter", sans-serif;
+  /* Khai báo khoảng cách (Sử dụng rộng rãi cho p-*, m-*, gap-*,...) */
+  --spacing-space-xs: var(--space-xs);
+  --spacing-space-sm: var(--space-sm);
+  --spacing-space-md: var(--space-md);
+  --spacing-space-lg: var(--space-lg);
+  --spacing-space-xl: var(--space-xl);
+
+  /* Khai báo Typography */
+  --font-sans: var(--font-sans);
+
+  --text-xs: var(--text-xs);
+  --text-base: var(--text-base);
+  --text-lg: var(--text-lg);
+  --text-xl: var(--text-xl);
+  --text-2xl: var(--text-2xl);
+  --text-3xl: var(--text-3xl);
 }

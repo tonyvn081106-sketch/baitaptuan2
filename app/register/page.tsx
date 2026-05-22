@@ -10,35 +10,33 @@ export default function RegisterPage() {
   const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
-    //dùng setTimeout để mô phỏng thời gian xử lý dữ liệu và đảm bảo alert native vẫn được bọc trong luồng UI mượt mà
-    setTimeout(() => { alert("Dữ liệu đăng ký đã được gửi thành công!"); }, 50); // Mô phỏng thời gian xử lý dữ liệu
     
-    // Đảm bảo thông báo alert native vẫn được bọc trong luồng UI mượt mà
+    // Xử lý thông báo và điều hướng mượt mà
     setTimeout(() => {
       alert("Hệ thống đã ghi nhận thông tin đăng ký nông trại của bạn!");
       router.push("/");
-    }, 50);
+    }, 300);
   };
 
   return (
-    <main className="min-h-screen bg-brand-bg py-6 px-4 sm:py-12 sm:px-6 lg:px-8 flex items-center justify-center">
-      <div className="max-w-xl w-full bg-white rounded-2xl shadow-xl p-5 sm:p-8 border border-slate-100 space-y-6">
+    <main className="min-h-screen bg-neutral-light py-space-md px-4 sm:py-space-lg flex items-center justify-center font-body">
+      <div className="max-w-xl w-full bg-neutral-surface rounded-2xl shadow-xl p-5 sm:p-8 border border-neutral-muted/10 space-y-space-sm">
         
         {/* Khối điều hướng và tiêu đề */}
-        <div className="space-y-3 text-center relative flex flex-col items-center">
+        <div className="space-y-2 text-center relative flex flex-col items-center">
           <button 
             type="button"
             onClick={() => router.push("/")} 
             aria-label="Quay lại trang chủ"
-            className="sm:absolute sm:left-0 sm:top-1 text-sm font-semibold text-brand-primary hover:text-brand-dark transition-colors mb-2 sm:mb-0 focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2 rounded-md cursor-pointer"
+            className="sm:absolute sm:left-0 sm:top-1 text-sm font-semibold text-brand-primary hover:text-brand-secondary transition-colors mb-2 sm:mb-0 focus:outline-none focus:ring-2 focus:ring-state-focus focus:ring-offset-2 rounded-md cursor-pointer"
           >
             <span aria-hidden="true">←</span> Quay lại
           </button>
           
-          <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-text-main tracking-tight pt-2 sm:pt-0">
+          <h1 className="text-xl sm:text-2xl md:text-2xl font-extrabold text-neutral-dark tracking-tight pt-2 sm:pt-0">
             Đăng Ký Thành Viên
           </h1>
-          <p className="text-text-muted text-xs sm:text-sm max-w-sm">
+          <p className="text-neutral-muted text-sm max-w-sm">
             Hệ thống quản lý Nông nghiệp Công nghệ cao AgroTech
           </p>
         </div>
@@ -46,9 +44,9 @@ export default function RegisterPage() {
         {/* Biểu mẫu đăng ký */}
         <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
           
-          <div className="space-y-1">
-            <label htmlFor="fullname" className="block text-sm font-semibold text-text-body">
-              Họ và tên chủ trang trại <span className="text-red-500" aria-hidden="true">*</span>
+          <div className="space-y-space-xs">
+            <label htmlFor="fullname" className="block text-sm font-semibold text-neutral-dark">
+              Họ và tên chủ trang trại <span className="text-brand-accent" aria-hidden="true">*</span>
             </label>
             <input
               id="fullname"
@@ -56,46 +54,46 @@ export default function RegisterPage() {
               required
               aria-required="true"
               placeholder="Ví dụ: Nguyễn Văn A"
-              className="w-full px-4 py-3 rounded-xl border border-slate-200 text-text-main bg-slate-50/50 focus:outline-none focus:ring-2 focus:ring-brand-primary transition-all text-sm"
+              className="w-full px-4 py-3 rounded-xl border border-neutral-muted/30 text-neutral-dark bg-neutral-light/50 focus:outline-none focus:ring-2 focus:ring-state-focus transition-all text-base"
             />
           </div>
 
-          <div className="space-y-1">
-            <label htmlFor="phone" className="block text-sm font-semibold text-text-body">
-              Số điện thoại liên hệ <span className="text-red-500" aria-hidden="true">*</span>
+          <div className="space-y-space-xs">
+            <label htmlFor="phone" className="block text-sm font-semibold text-neutral-dark">
+              Số điện thoại liên hệ <span className="text-brand-accent" aria-hidden="true">*</span>
             </label>
             <input
               id="phone"
               type="tel"
               required
               aria-required="true"
-              pattern="[0-9]{10,11}"
+              pattern="[0-9]{10,11}"  
               placeholder="Nhập số điện thoại (10-11 số)..."
-              className="w-full px-4 py-3 rounded-xl border border-slate-200 text-text-main bg-slate-50/50 focus:outline-none focus:ring-2 focus:ring-brand-primary transition-all text-sm"
+              className="w-full px-4 py-3 rounded-xl border border-neutral-muted/30 text-neutral-dark bg-neutral-light/50 focus:outline-none focus:ring-2 focus:ring-state-focus transition-all text-base"
             />
           </div>
 
-          <div className="space-y-1">
-            <label htmlFor="farm-name" className="block text-sm font-semibold text-text-body">
+          <div className="space-y-space-xs">
+            <label htmlFor="farm-name" className="block text-sm font-semibold text-neutral-dark">
               Tên tổ chức / Trang trại
             </label>
             <input
               id="farm-name"
               type="text"
               placeholder="Ví dụ: Hợp tác xã Xanh Việt"
-              className="w-full px-4 py-3 rounded-xl border border-slate-200 text-text-main bg-slate-50/50 focus:outline-none focus:ring-2 focus:ring-brand-primary transition-all text-sm"
+              className="w-full px-4 py-3 rounded-xl border border-neutral-muted/30 text-neutral-dark bg-neutral-light/50 focus:outline-none focus:ring-2 focus:ring-state-focus transition-all text-base"
             />
           </div>
 
-          <div className="space-y-1">
-            <label htmlFor="farm-type" className="block text-sm font-semibold text-text-body">
-              Mô hình canh sản xuất <span className="text-red-500" aria-hidden="true">*</span>
+          <div className="space-y-space-xs">
+            <label htmlFor="farm-type" className="block text-sm font-semibold text-neutral-dark">
+              Mô hình canh sản xuất <span className="text-brand-accent" aria-hidden="true">*</span>
             </label>
             <select
               id="farm-type"
               required
               aria-required="true"
-              className="w-full px-4 py-3 rounded-xl border border-slate-200 text-text-main bg-slate-50/50 focus:outline-none focus:ring-2 focus:ring-brand-primary transition-all text-sm cursor-pointer"
+              className="w-full px-4 py-3 rounded-xl border border-neutral-muted/30 text-neutral-dark bg-neutral-light/50 focus:outline-none focus:ring-2 focus:ring-state-focus transition-all text-base cursor-pointer"
             >
               <option value="">-- Chọn mô hình --</option>
               <option value="greenhouse">Nhà kính thông minh (Greenhouse)</option>
@@ -105,23 +103,22 @@ export default function RegisterPage() {
             </select>
           </div>
 
-          <div className="space-y-1">
-            <label htmlFor="message" className="block text-sm font-semibold text-text-body">
+          <div className="space-y-space-xs">
+            <label htmlFor="message" className="block text-sm font-semibold text-neutral-dark">
               Yêu cầu tư vấn cụ thể
             </label>
             <textarea
               id="message"
               rows={3}
               placeholder="Nêu rõ diện tích nông trại hoặc vấn đề bạn đang gặp phải..."
-              className="w-full px-4 py-3 rounded-xl border border-slate-200 text-text-main bg-slate-50/50 focus:outline-none focus:ring-2 focus:ring-brand-primary transition-all text-sm resize-none"
+              className="w-full px-4 py-3 rounded-xl border border-neutral-muted/30 text-neutral-dark bg-neutral-light/50 focus:outline-none focus:ring-2 focus:ring-state-focus transition-all text-base resize-none"
             ></textarea>
           </div>
 
-          {/* Nút gửi tối ưu trạng thái */}
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full mt-2 bg-brand-primary text-white font-bold py-3.5 rounded-xl hover:bg-brand-dark focus:ring-4 focus:ring-green-100 transition-colors shadow-md outline-none disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+            className="w-full mt-2 bg-brand-primary text-white font-bold py-3.5 rounded-xl hover:bg-brand-secondary focus:ring-4 focus:ring-brand-primary/20 transition-colors shadow-md outline-none disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer text-base"
           >
             {isSubmitting ? "Đang gửi dữ liệu..." : "Gửi yêu cầu đăng ký"}
           </button>
