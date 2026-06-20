@@ -19,6 +19,8 @@ let User = class User {
     gender;
     phone;
     role;
+    resetPasswordCode;
+    resetPasswordExpires;
 };
 exports.User = User;
 __decorate([
@@ -49,6 +51,14 @@ __decorate([
     (0, mongoose_1.Prop)({ default: 'GUEST', enum: ['GUEST', 'ADMIN', 'RECEPTIONIST'] }),
     __metadata("design:type", String)
 ], User.prototype, "role", void 0);
+__decorate([
+    (0, mongoose_1.Prop)(),
+    __metadata("design:type", String)
+], User.prototype, "resetPasswordCode", void 0);
+__decorate([
+    (0, mongoose_1.Prop)(),
+    __metadata("design:type", Date)
+], User.prototype, "resetPasswordExpires", void 0);
 exports.User = User = __decorate([
     (0, mongoose_1.Schema)({ timestamps: { createdAt: 'created_at', updatedAt: false } })
 ], User);

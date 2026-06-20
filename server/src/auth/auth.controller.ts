@@ -22,4 +22,16 @@ export class AuthController {
   changePassword(@Request() req: any, @Body() body: any) {
     return this.authService.changePassword(req.user.sub || req.user.userId, body);
   }
+
+  @Post('forgot-password')
+  @HttpCode(HttpStatus.OK)
+  forgotPassword(@Body('email') email: string) {
+    return this.authService.forgotPassword(email);
+  }
+
+  @Post('reset-password')
+  @HttpCode(HttpStatus.OK)
+  resetPassword(@Body() body: any) {
+    return this.authService.resetPassword(body);
+  }
 }

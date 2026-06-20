@@ -15,4 +15,10 @@ export declare class AuthController {
         };
     }>;
     changePassword(req: any, body: any): Promise<import("../database/mongodb/schemas/user.schema").UserDocument | null>;
+    forgotPassword(email: string): Promise<{
+        message: string;
+    }>;
+    resetPassword(body: any): Promise<{
+        message: string;
+    }>;
 }

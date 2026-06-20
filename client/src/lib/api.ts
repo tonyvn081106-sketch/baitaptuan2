@@ -18,5 +18,7 @@ api.createRoom = (formData: FormData) => api.post('/rooms', formData);
 api.updateRoom = (id: string, formData: FormData) => api.put(`/rooms/${id}`, formData);
 api.deleteRoom = (id: string) => api.delete(`/rooms/${id}`);
 api.changePassword = (data: any) => api.put('/auth/change-password', data);
+api.forgotPassword = (email: string) => api.post('/auth/forgot-password', { email });
+api.resetPassword = (data: any) => api.post('/auth/reset-password', data);
 
 export default api;

@@ -40,7 +40,7 @@ export default function LoginPage() {
             />
           </div>
 
-          <div className="relative mb-8">
+          <div className="relative mb-2">
             <label className="absolute -top-2 left-3 bg-white px-1 text-xs text-gray-500">Mật khẩu</label>
             <input
               type="password"
@@ -50,6 +50,11 @@ export default function LoginPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
+          </div>
+          <div className="flex justify-end mb-6">
+            <Link href="/forgot-password" className="text-sm font-medium text-[#2b7dfa] hover:underline">
+              Quên mật khẩu?
+            </Link>
           </div>
 
           <button

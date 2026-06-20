@@ -93,6 +93,38 @@ let AuthService = class AuthService {
         const newHash = await bcrypt.hash(data.newPassword, 10);
         return this.userRepository.update(userId, { password_hash: newHash });
     }
+    async forgotPassword(email) {
+        const user = await this.userRepository.findByEmail(email);
+        if (!user) {
+            return { message: 'Nếu email tồn tại, một mã xác thực sẽ được gửi tới.' };
+        }
+        const code = Math.floor(100000 + Math.random() * 900000).toString();
+        const expires = new Date();
+        expires.setMinutes(expires.getMinutes() + 15);
+        await this.userRepository.update(user._id.toString(), {
+            resetPasswordCode: code,
+            resetPasswordExpires: expires
+        });
+        console.log(`\n=========================================`);
+        console.log(`[FAKE EMAIL] QUÊN MẬT KHẨU CHO: ${email}`);
+        console.log(`[FAKE EMAIL] MÃ OTP CỦA BẠN LÀ: ${code}`);
+        console.log(`=========================================\n`);
+        return { message: 'Nếu email tồn tại, một mã xác thực sẽ được gửi tới.' };
+    }
+    async resetPassword(data) {
+        const { email, code, newPassword } = data;
+        const user = await this.userRepository.findByEmail(email);
+        if (!user || user.resetPasswordCode !== code || !user.resetPasswordExpires || new Date(user.resetPasswordExpires) < new Date()) {
+            throw new common_1.UnauthorizedException('Mã xác thực không hợp lệ hoặc đã hết hạn');
+        }
+        const newHash = await bcrypt.hash(newPassword, 10);
+        await this.userRepository.update(user._id.toString(), {
+            password_hash: newHash,
+            resetPasswordCode: null,
+            resetPasswordExpires: null
+        });
+        return { message: 'Mật khẩu đã được đặt lại thành công' };
+    }
 };
 exports.AuthService = AuthService;
 exports.AuthService = AuthService = __decorate([

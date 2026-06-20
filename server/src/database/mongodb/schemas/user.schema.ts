@@ -25,6 +25,12 @@ export class User {
 
   @Prop({ default: 'GUEST', enum: ['GUEST', 'ADMIN', 'RECEPTIONIST'] })
   role: string;
+
+  @Prop()
+  resetPasswordCode?: string;
+
+  @Prop()
+  resetPasswordExpires?: Date;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

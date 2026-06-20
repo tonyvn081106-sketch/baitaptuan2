@@ -1,7 +1,7 @@
 "use client";
 
 import Link from 'next/link';
-import { BedDouble, Plane, Car, Earth, MapPin, User, Menu, LogOut } from 'lucide-react';
+import { BedDouble, MapPin, User, LogOut } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 

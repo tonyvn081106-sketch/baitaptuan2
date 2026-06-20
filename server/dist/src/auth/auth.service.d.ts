@@ -17,4 +17,10 @@ export declare class AuthService {
         };
     }>;
     changePassword(userId: string, data: any): Promise<import("../database/mongodb/schemas/user.schema").UserDocument | null>;
+    forgotPassword(email: string): Promise<{
+        message: string;
+    }>;
+    resetPassword(data: any): Promise<{
+        message: string;
+    }>;
 }
