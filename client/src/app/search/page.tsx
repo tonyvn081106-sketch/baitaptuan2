@@ -10,7 +10,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 
-export default function SearchPage() {
+function SearchPageContent() {
   const searchParams = useSearchParams();
   const branch = searchParams.get('branch') || '';
   
@@ -201,5 +201,14 @@ export default function SearchPage() {
 
       <Footer />
     </div>
+  );
+}
+
+import { Suspense } from 'react';
+export default function SearchPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-gray-100">Đang tải...</div>}>
+      <SearchPageContent />
+    </Suspense>
   );
 }

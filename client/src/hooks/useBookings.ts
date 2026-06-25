@@ -30,9 +30,15 @@ export const useCreateBooking = () => {
       
       return { previousBookings };
     },
-    onError: (err, newBooking, context) => {
+    onError: (err: any, newBooking, context) => {
       queryClient.setQueryData(['bookings'], context?.previousBookings);
-      toast.error('Failed to create booking');
+      if (err.response?.status === 409) {
+        toast.error('Rất tiếc! Phòng này vừa được đặt bởi người khác trong khoảng thời gian này. Vui lòng chọn ngày khác!', {
+          duration: 5000,
+        });
+      } else {
+        toast.error('Có lỗi xảy ra khi đặt phòng, vui lòng thử lại!');
+      }
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ['bookings'] });
@@ -40,19 +46,19 @@ export const useCreateBooking = () => {
   });
 };
 
-export const useDeleteBooking = () => {
+export const useCancelBooking = () => {
   const queryClient = useQueryClient();
   
   return useMutation({
-    mutationFn: async (id: string) => {
-      await api.delete(`/bookings/${id}`);
+    mutationFn: async ({ id, reason }: { id: string; reason: string }) => {
+      await api.put(`/bookings/${id}/status`, { status: 'CANCELLED', reason });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['bookings'] });
-      toast.success('Booking deleted');
+      toast.success('Hủy phòng thành công');
     },
     onError: () => {
-      toast.error('Failed to delete booking');
+      toast.error('Có lỗi xảy ra khi hủy phòng');
     }
   });
 };

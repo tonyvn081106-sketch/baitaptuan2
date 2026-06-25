@@ -18,8 +18,8 @@ export class BookingsController {
   }
 
   @Put(':id/status')
-  updateStatus(@Param('id') id: string, @Body('status') status: string) {
-    return this.bookingsService.updateStatus(id, status);
+  updateStatus(@Param('id') id: string, @Body('status') status: string, @Body('reason') reason?: string) {
+    return this.bookingsService.updateStatus(id, status, reason);
   }
 
   @Delete(':id')

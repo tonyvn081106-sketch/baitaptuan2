@@ -7,10 +7,34 @@ import Link from 'next/link';
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const { mutate: login, isPending } = useLogin();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setError('');
+
+    if (!email.trim()) {
+      setError('Vui lòng nhập email');
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email.trim())) {
+      setError('Định dạng email không hợp lệ');
+      return;
+    }
+
+    if (!password.trim()) {
+      setError('Vui lòng nhập mật khẩu');
+      return;
+    }
+
+    if (password.trim().length < 6) {
+      setError('Mật khẩu phải có ít nhất 6 ký tự');
+      return;
+    }
+
     login({ email, password });
   };
 
@@ -25,13 +49,18 @@ export default function LoginPage() {
           </p>
         </div>
 
-
+        {error && (
+          <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-lg text-sm">
+            {error}
+          </div>
+        )}
 
         <form onSubmit={handleSubmit}>
           <div className="relative mb-5">
             <label className="absolute -top-2 left-3 bg-white px-1 text-xs text-gray-500">Email</label>
             <input
               type="email"
+              name="email"
               required
               className="w-full border border-gray-300 rounded-lg px-4 py-3.5 outline-none focus:border-[#2b7dfa] transition-colors text-gray-900 bg-white"
               placeholder="id@email.com"
@@ -44,6 +73,7 @@ export default function LoginPage() {
             <label className="absolute -top-2 left-3 bg-white px-1 text-xs text-gray-500">Mật khẩu</label>
             <input
               type="password"
+              name="password"
               required
               className="w-full border border-gray-300 rounded-lg px-4 py-3.5 outline-none focus:border-[#2b7dfa] transition-colors text-gray-900 bg-white"
               placeholder="••••••••"

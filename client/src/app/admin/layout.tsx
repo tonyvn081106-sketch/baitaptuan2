@@ -3,12 +3,28 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { LayoutDashboard, BedDouble, Users, Settings, LogOut } from 'lucide-react';
+import { LayoutDashboard, BedDouble, Users, Settings, LogOut, LineChart } from 'lucide-react';
+import { useQuery } from '@tanstack/react-query';
+import api from '@/lib/api';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const [isAdmin, setIsAdmin] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
+
+  const { data: notificationCount } = useQuery({
+    queryKey: ['admin_notification_count'],
+    queryFn: async () => {
+      try {
+        const { data } = await api.get('/bookings');
+        return data.filter((b: any) => b.status === 'PENDING').length;
+      } catch (e) {
+        return 0;
+      }
+    },
+    initialData: 0,
+    refetchInterval: 10000, // Auto refresh every 10 seconds just in case
+  });
 
   useEffect(() => {
     const userStr = localStorage.getItem('user');
@@ -50,11 +66,24 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <nav className="flex-1 p-4 space-y-2">
           <Link href="/admin/dashboard" className={`flex items-center space-x-3 px-4 py-3 rounded text-sm font-bold transition ${typeof window !== 'undefined' && window.location.pathname === '/admin/dashboard' ? 'bg-white/20' : 'hover:bg-white/10'}`}>
             <BedDouble size={20} />
-            <span>Quản lý Nhà & Phòng</span>
+            <span>Quản lý phòng</span>
+          </Link>
+          <Link href="/admin/bookings" className={`flex items-center space-x-3 px-4 py-3 rounded text-sm font-bold transition ${typeof window !== 'undefined' && window.location.pathname === '/admin/bookings' ? 'bg-white/20' : 'hover:bg-white/10'}`}>
+            <LayoutDashboard size={20} />
+            <span className="flex-1">Quản lý đặt phòng</span>
+            {notificationCount > 0 && (
+              <span className="bg-red-500 text-white rounded-full px-2 py-0.5 text-xs font-bold animate-pulse">
+                {notificationCount}
+              </span>
+            )}
           </Link>
           <Link href="/admin/customers" className={`flex items-center space-x-3 px-4 py-3 rounded text-sm font-bold transition ${typeof window !== 'undefined' && window.location.pathname === '/admin/customers' ? 'bg-white/20' : 'hover:bg-white/10'}`}>
             <Users size={20} />
-            <span>Khách hàng đang ở</span>
+            <span>Quản lý khách hàng</span>
+          </Link>
+          <Link href="/admin/revenue" className={`flex items-center space-x-3 px-4 py-3 rounded text-sm font-bold transition ${typeof window !== 'undefined' && window.location.pathname === '/admin/revenue' ? 'bg-white/20' : 'hover:bg-white/10'}`}>
+            <LineChart size={20} />
+            <span>Quản lý doanh thu</span>
           </Link>
           <Link href="/admin/settings" className={`flex items-center space-x-3 px-4 py-3 rounded text-sm font-bold transition ${typeof window !== 'undefined' && window.location.pathname === '/admin/settings' ? 'bg-white/20' : 'hover:bg-white/10'}`}>
             <Settings size={20} />

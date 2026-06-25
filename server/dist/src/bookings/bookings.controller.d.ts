@@ -4,6 +4,6 @@ export declare class BookingsController {
     constructor(bookingsService: BookingsService);
     findAll(req: any): Promise<import("../database/mongodb/schemas/booking.schema").BookingDocument[]>;
     create(req: any, data: any): Promise<import("mongoose").PopulateDocumentResult<import("../database/mongodb/schemas/booking.schema").BookingDocument, {}, any, any>>;
-    updateStatus(id: string, status: string): Promise<import("../database/mongodb/schemas/booking.schema").BookingDocument | null>;
+    updateStatus(id: string, status: string, reason?: string): Promise<import("../database/mongodb/schemas/booking.schema").BookingDocument | null>;
     delete(id: string): Promise<import("../database/mongodb/schemas/booking.schema").BookingDocument | null>;
 }

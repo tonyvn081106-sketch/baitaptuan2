@@ -7,6 +7,7 @@ export declare class Booking {
     check_out_date: Date;
     status: string;
     total_amount: number;
+    cancellation_reason?: string;
 }
 export declare const BookingSchema: import("mongoose").Schema<Booking, import("mongoose").Model<Booking, any, any, any, any, any, Booking>, {}, {}, {}, {}, import("mongoose").DefaultSchemaOptions, Booking, Document<unknown, {}, Booking, {
     id: string;
@@ -63,6 +64,15 @@ export declare const BookingSchema: import("mongoose").Schema<Booking, import("m
         id: string;
     }> | undefined;
     total_amount?: import("mongoose").SchemaDefinitionProperty<number, Booking, Document<unknown, {}, Booking, {
+        id: string;
+    }, import("mongoose").DefaultSchemaOptions> & Omit<Booking & {
+        _id: Types.ObjectId;
+    } & {
+        __v: number;
+    }, "id"> & {
+        id: string;
+    }> | undefined;
+    cancellation_reason?: import("mongoose").SchemaDefinitionProperty<string | undefined, Booking, Document<unknown, {}, Booking, {
         id: string;
     }, import("mongoose").DefaultSchemaOptions> & Omit<Booking & {
         _id: Types.ObjectId;

@@ -22,6 +22,9 @@ export class Booking {
 
   @Prop({ required: true })
   total_amount: number;
+
+  @Prop()
+  cancellation_reason?: string;
 }
 
 export const BookingSchema = SchemaFactory.createForClass(Booking);

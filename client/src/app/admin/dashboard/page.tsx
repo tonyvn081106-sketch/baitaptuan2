@@ -16,6 +16,35 @@ export default function AdminDashboardPage() {
     }
   });
 
+  const { data: bookings } = useQuery({
+    queryKey: ['adminDashboardBookings'],
+    queryFn: async () => {
+      try {
+        const { data } = await api.get('/bookings');
+        return data;
+      } catch (e) {
+        return [];
+      }
+    }
+  });
+
+  const isOccupied = (roomId: string) => {
+    if (!bookings) return false;
+    const now = new Date();
+    now.setHours(0, 0, 0, 0);
+    
+    return bookings.some((b: any) => {
+      if (b.status === 'CANCELLED') return false;
+      if (b.room?.id !== roomId && b.room_id !== roomId) return false;
+      const checkIn = new Date(b.check_in_date);
+      checkIn.setHours(0, 0, 0, 0);
+      const checkOut = new Date(b.check_out_date);
+      checkOut.setHours(0, 0, 0, 0);
+      
+      return now >= checkIn && now < checkOut;
+    });
+  };
+
   const createRoom = useCreateRoom();
   const deleteRoom = useDeleteRoom();
 
@@ -39,6 +68,7 @@ export default function AdminDashboardPage() {
   const [previewImage, setPreviewImage] = useState<string>('');
 
   const [expandedHouses, setExpandedHouses] = useState<Record<string, boolean>>({});
+  const [calendarModal, setCalendarModal] = useState<{ isOpen: boolean, room: any | null }>({ isOpen: false, room: null });
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
@@ -186,27 +216,46 @@ export default function AdminDashboardPage() {
                     <span className="font-semibold text-gray-800">{house.destination}</span>
                   </p>
                   <div className="border-t border-gray-100 pt-4">
+
                   <button 
                     onClick={() => setExpandedHouses(prev => ({...prev, [house.name]: !prev[house.name]}))}
                     className="w-full flex justify-between items-center text-sm font-bold text-gray-700 mb-2 hover:text-[#0071c2] transition"
                   >
-                    <span>Các hạng phòng ({house.rooms.length}):</span>
+                    <span>Chi tiết {house.rooms.length} phòng:</span>
                     {expandedHouses[house.name] ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
                   </button>
                   
-                  {expandedHouses[house.name] && (
-                    <ul className="space-y-2 mt-3">
-                      {house.rooms.map((r: any) => (
-                        <li key={r.id} className="text-sm flex justify-between items-center bg-gray-50 p-2 rounded border border-gray-100">
-                          <span className="flex items-center gap-2">
-                            <CheckCircle size={14} className="text-green-500" />
-                            <span className="font-medium text-gray-800">{r.name}</span>
-                          </span>
-                          <span className="text-[#0071c2] font-bold">{(r.price || 0).toLocaleString()}đ</span>
-                      </li>
-                    ))}
-                  </ul>
-                  )}
+                  {expandedHouses[house.name] && (() => {
+                    return (
+                      <ul className="space-y-2 mt-3 max-h-48 overflow-y-auto pr-1">
+                        {house.rooms.map((r: any) => {
+                          const occupied = isOccupied(r.id);
+                          return (
+                            <li key={r.id} className="text-sm flex justify-between items-center bg-gray-50 p-2 rounded border border-gray-100">
+                              <span className="flex items-center gap-2">
+                                <span className="relative flex h-3 w-3">
+                                  {occupied && <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>}
+                                  <span className={`relative inline-flex rounded-full h-3 w-3 ${occupied ? 'bg-red-500' : 'bg-green-500'}`}></span>
+                                </span>
+                                <span className="font-medium text-gray-800">{r.name}</span>
+                              </span>
+                              <div className="flex items-center gap-3">
+                                <span className={`text-xs font-bold ${occupied ? 'text-red-600' : 'text-green-600'}`}>
+                                  {occupied ? 'Đang có khách' : 'Sẵn sàng'}
+                                </span>
+                                <button 
+                                  onClick={() => setCalendarModal({ isOpen: true, room: r })}
+                                  className="text-xs bg-gray-200 hover:bg-gray-300 text-gray-700 px-2 py-1 rounded transition font-medium"
+                                >
+                                  Xem lịch
+                                </button>
+                              </div>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    );
+                  })()}
                 </div>
                 </div>
               </div>
@@ -361,6 +410,63 @@ export default function AdminDashboardPage() {
               >
                 {createRoom.isPending ? 'Đang tạo...' : 'Tạo Nhà mới'}
               </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal Popup Calendar */}
+      {calendarModal.isOpen && calendarModal.room && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
+          <div className="bg-white rounded-xl shadow-2xl w-full max-w-lg max-h-[80vh] flex flex-col">
+            <div className="flex justify-between items-center p-6 border-b border-gray-200 bg-gray-50 rounded-t-xl">
+              <h3 className="text-xl font-bold text-[#003b95]">
+                Lịch đặt phòng: {calendarModal.room.name}
+              </h3>
+              <button onClick={() => setCalendarModal({ isOpen: false, room: null })} className="text-gray-400 hover:text-gray-600 transition">
+                <X size={24} />
+              </button>
+            </div>
+            
+            <div className="p-6 overflow-y-auto flex-1">
+              {(() => {
+                const roomBookings = bookings?.filter((b: any) => 
+                  (b.room?.id === calendarModal.room.id || b.room_id === calendarModal.room.id) &&
+                  b.status !== 'CANCELLED'
+                ).sort((a: any, b: any) => new Date(a.check_in_date).getTime() - new Date(b.check_in_date).getTime());
+
+                if (!roomBookings || roomBookings.length === 0) {
+                  return <div className="text-center text-gray-500 py-10">Phòng này chưa có lịch đặt nào sắp tới.</div>;
+                }
+
+                return (
+                  <div className="space-y-4">
+                    {roomBookings.map((b: any) => {
+                      const checkIn = new Date(b.check_in_date);
+                      const checkOut = new Date(b.check_out_date);
+                      const now = new Date();
+                      now.setHours(0,0,0,0);
+                      const isPast = checkOut < now;
+                      const isCurrent = checkIn <= now && checkOut > now;
+                      
+                      return (
+                        <div key={b.id} className={`p-4 border rounded-lg ${isCurrent ? 'border-red-300 bg-red-50' : isPast ? 'border-gray-200 bg-gray-50 opacity-70' : 'border-[#0071c2]/30 bg-blue-50/30'}`}>
+                          <div className="flex justify-between mb-2">
+                            <span className="font-bold text-gray-800">{b.user?.name || 'Khách vãng lai'}</span>
+                            <span className={`text-xs font-bold px-2 py-0.5 rounded ${b.status === 'PENDING' ? 'bg-yellow-100 text-yellow-700' : 'bg-green-100 text-green-700'}`}>
+                              {b.status === 'PENDING' ? 'Chờ xác nhận' : 'Đã xác nhận'}
+                            </span>
+                          </div>
+                          <div className="flex gap-4 text-sm text-gray-600">
+                            <div><span className="block text-xs text-gray-400">Nhận phòng</span> <b>{checkIn.toLocaleDateString('vi-VN')}</b></div>
+                            <div><span className="block text-xs text-gray-400">Trả phòng</span> <b>{checkOut.toLocaleDateString('vi-VN')}</b></div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                );
+              })()}
             </div>
           </div>
         </div>

@@ -10,6 +10,7 @@ import { MongoDatabaseModule } from './database/mongodb/mongo-database.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { RoomsModule } from './rooms/rooms.module';
+import { PaymentsModule } from './payments/payments.module';
 
 @Module({
   imports: [
@@ -22,7 +23,8 @@ import { RoomsModule } from './rooms/rooms.module';
     AuthModule,
     BookingsModule,
     NotificationsModule,
-    RoomsModule
+    RoomsModule,
+    PaymentsModule
   ],
   controllers: [AppController],
   providers: [AppService],

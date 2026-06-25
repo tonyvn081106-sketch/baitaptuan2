@@ -1,8 +1,17 @@
-import axios from 'axios';
+import axios, { AxiosInstance } from 'axios';
+
+interface CustomApi extends AxiosInstance {
+  createRoom: (formData: FormData) => Promise<any>;
+  updateRoom: (id: string, formData: FormData) => Promise<any>;
+  deleteRoom: (id: string) => Promise<any>;
+  changePassword: (data: any) => Promise<any>;
+  forgotPassword: (email: string) => Promise<any>;
+  resetPassword: (data: any) => Promise<any>;
+}
 
 const api = axios.create({
-  baseURL: 'http://localhost:3000',
-});
+  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000',
+}) as CustomApi;
 
 api.interceptors.request.use((config) => {
   if (typeof window !== 'undefined') {

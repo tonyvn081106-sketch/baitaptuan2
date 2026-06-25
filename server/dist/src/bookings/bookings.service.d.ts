@@ -6,6 +6,6 @@ export declare class BookingsService {
     constructor(bookingRepository: BookingRepository, notificationsGateway: NotificationsGateway);
     findAll(userId: string, role: string): Promise<import("../database/mongodb/schemas/booking.schema").BookingDocument[]>;
     create(userId: string, data: any): Promise<import("mongoose").PopulateDocumentResult<import("../database/mongodb/schemas/booking.schema").BookingDocument, {}, any, any>>;
-    updateStatus(id: string, status: any): Promise<import("../database/mongodb/schemas/booking.schema").BookingDocument | null>;
+    updateStatus(id: string, status: any, reason?: string): Promise<import("../database/mongodb/schemas/booking.schema").BookingDocument | null>;
     delete(id: string): Promise<import("../database/mongodb/schemas/booking.schema").BookingDocument | null>;
 }

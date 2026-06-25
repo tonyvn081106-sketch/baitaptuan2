@@ -7,10 +7,10 @@ export class NotificationsGateway {
   server: Server;
 
   notifyBookingCreated(booking: any) {
-    this.server.emit('booking:created', { message: 'New booking created', booking });
+    this.server.emit('booking:created', { message: 'Có đơn đặt phòng mới cần xác nhận!', booking });
   }
 
   notifyStatusChanged(booking: any) {
-    this.server.emit('status:changed', { message: `Booking status changed to ${booking.status}`, booking });
+    this.server.emit('status:changed', { message: `Trạng thái đơn đặt phòng đã thay đổi thành ${booking.status}`, booking });
   }
 }

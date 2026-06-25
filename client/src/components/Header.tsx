@@ -2,11 +2,11 @@
 
 import Link from 'next/link';
 import { BedDouble, MapPin, User, LogOut } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 
-export default function Header() {
-  const [user, setUser] = useState<{ email: string, id: string, name?: string } | null>(null);
+function HeaderContent() {
+  const [user, setUser] = useState<{ email: string, id: string, name?: string, role?: string } | null>(null);
   const [activeCategory, setActiveCategory] = useState('Trang chủ');
   const router = useRouter();
   const pathname = usePathname();
@@ -125,5 +125,13 @@ export default function Header() {
         </div>
       </div>
     </header>
+  );
+}
+
+export default function Header() {
+  return (
+    <Suspense fallback={<header className="bg-[#003b95] text-white h-24"></header>}>
+      <HeaderContent />
+    </Suspense>
   );
 }

@@ -19,6 +19,7 @@ let Booking = class Booking {
     check_out_date;
     status;
     total_amount;
+    cancellation_reason;
 };
 exports.Booking = Booking;
 __decorate([
@@ -45,6 +46,10 @@ __decorate([
     (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", Number)
 ], Booking.prototype, "total_amount", void 0);
+__decorate([
+    (0, mongoose_1.Prop)(),
+    __metadata("design:type", String)
+], Booking.prototype, "cancellation_reason", void 0);
 exports.Booking = Booking = __decorate([
     (0, mongoose_1.Schema)({ timestamps: { createdAt: 'created_at', updatedAt: false } })
 ], Booking);

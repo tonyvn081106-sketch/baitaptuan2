@@ -15,10 +15,10 @@ const socket_io_1 = require("socket.io");
 let NotificationsGateway = class NotificationsGateway {
     server;
     notifyBookingCreated(booking) {
-        this.server.emit('booking:created', { message: 'New booking created', booking });
+        this.server.emit('booking:created', { message: 'Có đơn đặt phòng mới cần xác nhận!', booking });
     }
     notifyStatusChanged(booking) {
-        this.server.emit('status:changed', { message: `Booking status changed to ${booking.status}`, booking });
+        this.server.emit('status:changed', { message: `Trạng thái đơn đặt phòng đã thay đổi thành ${booking.status}`, booking });
     }
 };
 exports.NotificationsGateway = NotificationsGateway;

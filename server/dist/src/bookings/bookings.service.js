@@ -27,11 +27,22 @@ let BookingsService = class BookingsService {
         return this.bookingRepository.findAllWithRelations();
     }
     async create(userId, data) {
+        const newCheckIn = new Date(data.check_in_date);
+        const newCheckOut = new Date(data.check_out_date);
+        const overlappingBookings = await this.bookingRepository.findAllWithRelations({
+            room_id: data.room_id,
+            status: { $nin: ['CANCELLED', 'CHECKED_OUT'] },
+            check_in_date: { $lt: newCheckOut },
+            check_out_date: { $gt: newCheckIn }
+        });
+        if (overlappingBookings && overlappingBookings.length > 0) {
+            throw new common_1.ConflictException('Phòng này đã được đặt trong khoảng thời gian bạn chọn!');
+        }
         const booking = await this.bookingRepository.create({
             user_id: userId,
             room_id: data.room_id,
-            check_in_date: new Date(data.check_in_date),
-            check_out_date: new Date(data.check_out_date),
+            check_in_date: newCheckIn,
+            check_out_date: newCheckOut,
             total_amount: data.total_amount,
             status: 'PENDING'
         });
@@ -40,8 +51,15 @@ let BookingsService = class BookingsService {
         this.notificationsGateway.notifyBookingCreated(populated);
         return populated;
     }
-    async updateStatus(id, status) {
-        const booking = await this.bookingRepository.update(id, { status });
+    async updateStatus(id, status, reason) {
+        const updateData = { status };
+        if (reason && status === 'CANCELLED') {
+            updateData.cancellation_reason = reason;
+        }
+        else if (status === 'CHECKED_OUT') {
+            updateData.check_out_date = new Date();
+        }
+        const booking = await this.bookingRepository.update(id, updateData);
         if (booking) {
             this.notificationsGateway.notifyStatusChanged(booking);
         }

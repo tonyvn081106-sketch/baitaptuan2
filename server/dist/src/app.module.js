@@ -18,6 +18,7 @@ const mongo_database_module_1 = require("./database/mongodb/mongo-database.modul
 const serve_static_1 = require("@nestjs/serve-static");
 const path_1 = require("path");
 const rooms_module_1 = require("./rooms/rooms.module");
+const payments_module_1 = require("./payments/payments.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -33,7 +34,8 @@ exports.AppModule = AppModule = __decorate([
             auth_module_1.AuthModule,
             bookings_module_1.BookingsModule,
             notifications_module_1.NotificationsModule,
-            rooms_module_1.RoomsModule
+            rooms_module_1.RoomsModule,
+            payments_module_1.PaymentsModule
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
